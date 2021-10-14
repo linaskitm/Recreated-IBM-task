@@ -21,6 +21,7 @@ router.post("/post", upload.single("image"), async (req, res) => {
     // Save info
     await info.save();
     res.json(info);
+    res.end();
   } catch (err) {
     console.log(err);
   }
