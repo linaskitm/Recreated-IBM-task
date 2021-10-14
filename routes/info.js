@@ -1,9 +1,11 @@
-const router = require("express").Router();
+// const router = require("express").Router();
+const express = require("express");
+const app = express();
 const cloudinary = require("../utils/cloudinary");
 const upload = require("../utils/multer");
 const Info = require("../models/info");
 const createArrayMod = require("../utils/fakeData");
-router.post("/post", upload.single("image"), async (req, res) => {
+app.post("/post", upload.single("image"), async (req, res) => {
   try {
     // Upload image to cloudinary
     const result = await cloudinary.uploader.upload(req.file.path);
@@ -27,7 +29,7 @@ router.post("/post", upload.single("image"), async (req, res) => {
   }
 });
 
-router.get("/get", async (req, res) => {
+app.get("/get", async (req, res) => {
   try {
     let info = await Info.find();
     res.json(info);
@@ -35,7 +37,7 @@ router.get("/get", async (req, res) => {
     console.log(err);
   }
 });
-router.delete("/delete/:id", async (req, res) => {
+app.delete("/delete/:id", async (req, res) => {
   try {
     // Find user by id
     let info = await Info.findById(req.params.id);
@@ -48,4 +50,4 @@ router.delete("/delete/:id", async (req, res) => {
     console.log(err);
   }
 });
-module.exports = router;
+module.exports = app;
