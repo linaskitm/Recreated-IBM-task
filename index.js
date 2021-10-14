@@ -18,4 +18,5 @@ app.use(express.json());
 // Route
 app.use('/info', require('./routes/info'))
 
-app.listen(5000, () => console.log("Server is running"));
+const PORT = process.env.PORT || 500;
+app.listen(PORT, () => console.log("Server is running"));
