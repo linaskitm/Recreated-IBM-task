@@ -1,11 +1,12 @@
 // const router = require("express").Router();
 const express = require("express");
 const app = express();
+const timeout = require("connect-timeout");
 const cloudinary = require("../utils/cloudinary");
 const upload = require("../utils/multer");
 const Info = require("../models/info");
 const createArrayMod = require("../utils/fakeData");
-app.post("/post", upload.single("image"), async (req, res) => {
+app.post("/post", upload.single("image"), timeout('5s'), async (req, res) => {
   try {
     // Upload image to cloudinary
     const result = await cloudinary.uploader.upload(req.file.path);
@@ -29,7 +30,7 @@ app.post("/post", upload.single("image"), async (req, res) => {
   }
 });
 
-app.get("/get", async (req, res) => {
+app.get("/get", timeout('5s'), async (req, res) => {
   try {
     let info = await Info.find();
     res.json(info);
