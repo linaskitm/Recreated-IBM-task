@@ -3,7 +3,7 @@ const cloudinary = require("../utils/cloudinary");
 const upload = require("../utils/multer");
 const Info = require("../models/info");
 const createArrayMod = require("../utils/fakeData");
-router.post("/", upload.single("image"), async (req, res) => {
+router.post("/post", upload.single("image"), async (req, res) => {
   try {
     // Upload image to cloudinary
     const result = await cloudinary.uploader.upload(req.file.path);
